@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centered Custom Date Picker</title>
+    
+    <!-- Air Datepicker CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/air-datepicker@3.x.x/air-datepicker.css">
+
+
+</head>
+<body>
+
+  <section id="slider" data-aos="fade-up">
+    <div class="container-fluid padding-side">
+      <div class="d-flex rounded-5"
+        style="background-image: url(images/slider-image.jpg); background-size: cover; background-repeat: no-repeat; height: 85vh; background-position: center;">
+        <div class="row align-items-center m-auto pt-5 px-4 px-lg-0">
+          <div class="text-start col-md-6 col-lg-5 col-xl-6 offset-lg-1">
+            <h2 class="display-1 fw-normal">Hotel mellow Your Gateway to Serenity.</h2>
+            <a href="index.html" class="btn btn-arrow btn-primary mt-3">
+              <span>Explore rooms <svg width="18" height="18">
+                  <use xlink:href="#arrow-right"></use>
+                </svg></span>
+            </a>
+          </div>
+          <div class="col-md-6 col-lg-5 col-xl-4 mt-5 mt-md-0">
+            <form id="form" class="form-group flex-wrap bg-white p-5 rounded-4 ms-md-5">
+              <h3 class="display-5">Check availability</h3>
+              <div class="col-lg-12 my-4">
+                <label class="form-label text-uppercase">Check-In</label>
+                <div class="date position-relative bg-transparent" id="select-arrival-date">
+                  <a href="#" class="position-absolute top-50 end-0 translate-middle-y pe-2 ">
+
+                    <svg class="text-body" width="25" height="25">
+                      <use xlink:href="#calendar"></use>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <div class="col-lg-12 my-4">
+                <label class="form-label text-uppercase">Check-Out</label>
+                <div class="date position-relative bg-transparent" id="select-departure-date">
+                  <a href="#" class="position-absolute top-50 end-0 translate-middle-y pe-2 ">
+
+                    <svg class="text-body" width="25" height="25">
+                      <use xlink:href="#calendar"></use>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <div class="col-lg-12 my-4">
+                <label class="form-label text-uppercase">Rooms</label>
+                <input type="number" value="1" name="quantity" class="form-control text-black-50 ps-3">
+              </div>
+              <div class="col-lg-12 my-4">
+                <label class="form-label text-uppercase">Guests</label>
+                <input type="number" value="1" name="quantity" class="form-control text-black-50 ps-3">
+              </div>
+              <div class="d-grid">
+                <button href="#" class="btn btn-arrow btn-primary mt-3">
+                  <span>Check availability<svg width="18" height="18">
+                      <use xlink:href="#arrow-right"></use>
+                    </svg></span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Air Datepicker JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/air-datepicker@3.x.x/air-datepicker.js"></script>
+
+<!-- Initialize the date picker -->
+
+<script>
+  (function ($) {
+  "use strict";
+
+  var initPreloader = function () {
+    $(document).ready(function () {
+      var Body = $('body');
+      Body.addClass('preloader-site');
+    });
+    $(window).on('load', function () {
+      $('.preloader').fadeOut();
+      $('body').removeClass('preloader-site');
+    });
+  }
+
+  // init Chocolat light box
+  var initChocolat = function () {
+    Chocolat(document.querySelectorAll('.image-link'), {
+      imageSize: 'contain',
+      loop: true,
+    })
+  }
+
+  $(document).ready(function () {
+    // Isotope Initialization
+    var $container = $('.isotope-container').isotope({
+      itemSelector: '.item',
+      layoutMode: 'masonry',
+    });
+
+    // Filter items on button click
+    $('.filter-button').click(function () {
+      var filterValue = $(this).attr('data-filter');
+      if (filterValue === '*') {
+        $container.isotope({ filter: '*' });
+      } else {
+        $container.isotope({ filter: filterValue });
+      }
+      $('.filter-button').removeClass('active');
+      $(this).addClass('active');
+    });
+
+    // Video Modal
+    var $videoSrc;
+    $('.play-btn').click(function () {
+      $videoSrc = $(this).data("src");
+    });
+
+    $('#myModal').on('shown.bs.modal', function (e) {
+      $("#video").attr('src', $videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0");
+    })
+
+    $('#myModal').on('hide.bs.modal', function (e) {
+      $("#video").attr('src', $videoSrc);
+    })
+
+    // Swiper Initialization
+    var sliderSwiper = new Swiper(".slider", {
+      effect: "fade",
+    });
+
+    var roomSwiper = new Swiper(".room-swiper", {
+      slidesPerView: 3,
+      spaceBetween: 20,
+      pagination: {
+        el: ".room-pagination",
+        clickable: true,
+      },
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+        },
+        1024: {
+          slidesPerView: 2,
+        },
+        1280: {
+          slidesPerView: 3,
+        },
+      },
+    });
+
+    var gallerySwiper = new Swiper(".gallery-swiper", {
+      effect: "fade",
+      navigation: {
+        nextEl: ".main-slider-button-next",
+        prevEl: ".main-slider-button-prev",
+      },
+    });
+
+    var thumbSlider = new Swiper(".product-thumbnail-slider", {
+      autoplay: true,
+      loop: true,
+      spaceBetween: 8,
+      slidesPerView: 4,
+      freeMode: true,
+      watchSlidesProgress: true,
+    });
+
+    var largeSlider = new Swiper(".product-large-slider", {
+      autoplay: true,
+      loop: true,
+      spaceBetween: 10,
+      effect: 'fade',
+      thumbs: {
+        swiper: thumbSlider,
+      },
+    });
+
+    // Preloader
+    initPreloader();
+
+    // Chocolat
+    initChocolat();
+
+    // Animate on Scroll
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+
+    // DateTimePicker
+    new DateTimePickerComponent.DatePicker('select-arrival-date');
+    new DateTimePickerComponent.DatePicker('select-departure-date');
+  });
+})(jQuery);
+
+</script>
+</body>
+</html>
